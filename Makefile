@@ -11,6 +11,8 @@ smoketest-tinygo:
 	@md5sum test.hex
 	$(TINYGO) build -o test.uf2 -size=short -target=circuitplay-bluefruit ./examples/circuitplay
 	@md5sum test.hex
+	$(TINYGO) build -o test.uf2 -size=short -target=circuitplay-bluefruit ./examples/channelscan
+	@md5sum test.hex
 	$(TINYGO) build -o test.hex -size=short -target=pca10040-s132v6       ./examples/heartrate
 	@md5sum test.hex
 	$(TINYGO) build -o test.hex -size=short -target=reelboard-s140v7      ./examples/ledcolor
@@ -34,13 +36,16 @@ smoketest-linux:
 	GOOS=linux go build -o /tmp/go-build-discard ./examples/nusserver
 	GOOS=linux go build -o /tmp/go-build-discard ./examples/scanner
 	GOOS=linux go build -o /tmp/go-build-discard ./examples/discover
+	GOOS=linux go build -o /tmp/go-build-discard ./examples/channelscan
 
 smoketest-windows:
 	# Test on Windows.
 	GOOS=windows CGO_ENABLED=1 CC=x86_64-w64-mingw32-gcc go build -o /tmp/go-build-discard ./examples/scanner
+	GOOS=windows CGO_ENABLED=1 CC=x86_64-w64-mingw32-gcc go build -o /tmp/go-build-discard ./examples/channelscan
 
 smoketest-macos:
 	# Test on macos.
 	GOOS=darwin CGO_ENABLED=1 go build -o /tmp/go-build-discard ./examples/scanner
 	GOOS=darwin CGO_ENABLED=1 go build -o /tmp/go-build-discard ./examples/discover
 	GOOS=darwin CGO_ENABLED=1 go build -o /tmp/go-build-discard ./examples/nusclient
+	GOOS=darwin CGO_ENABLED=1 go build -o /tmp/go-build-discard ./examples/channelscan
